@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
-const expressLayouts = require("express-ejs-layouts");
 const path = require("path");
 const homeRoutes = require("./routes/home-routes");
 const auth = require("./routes/auth");
+const adminHome = require("./routes/admin-home");
+
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("express-flash");
@@ -46,12 +47,12 @@ app.use(passport.session());
 app.use(flash());
 
 // set Template engine
-app.use(expressLayouts);
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(homeRoutes.routes);
 app.use(auth.routes);
+app.use(adminHome.routes);
 
 app.listen(5000, () =>
   console.log("App is listening on url http://localhost:5000")
