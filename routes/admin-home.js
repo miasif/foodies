@@ -1,10 +1,8 @@
 const express = require("express");
-
-const { index } = require("../controllers/adminController");
 const router = express.Router();
 
-router.get("/admin", index);
+const adminController = require("../controllers/adminController");
 
-module.exports = {
-  routes: router,
-};
+router.get("/admin", adminController.index);
+
+module.exports = router;
