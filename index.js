@@ -4,7 +4,7 @@ const path = require("path");
 const homeRoutes = require("./routes/home-routes");
 const auth = require("./routes/auth");
 const adminHome = require("./routes/admin-home");
-
+const cartRoutes = require("./routes/cart-routes");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("express-flash");
@@ -53,6 +53,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(homeRoutes.routes);
 app.use(auth.routes);
 app.use(adminHome.routes);
+app.use(cartRoutes.routes);
 
 app.listen(5000, () =>
   console.log("App is listening on url http://localhost:5000")

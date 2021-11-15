@@ -54,8 +54,8 @@
       </div>
     </nav>
     <!-- End Main Menu -->
-
     <section class="cart">
+      <% if(session.cart) { %>
       <div class="order container mx-auto w-1/2 py-16">
         <div class="flex items-center border-b border-gray-300 pb-4">
           <img src="/img/cart-black.png" alt="" />
@@ -63,24 +63,29 @@
         </div>
         <div class="food-list">
           <!-- Start Food List -->
-
+          <% for(let food of Object.values(session?.cart?.items)) { %>
           <div class="flex items-center py-4">
-            <img class="w-24" src="/img/pizza.png" alt="" />
+            <img class="w-24" src="/img/<%= food?.item?.image%>" alt="" />
             <div class="flex-1 ml-4">
-              <h1>hhhhhh</h1>
-              <span>small</span>
+              <h1><%= food?.item?.name%></h1>
+              <span><%= food?.item?.size%></span>
             </div>
-            <span class="flex-1">1</span>
-            <span class="font-bold text-lg">300Tk</span>
+            <span class="flex-1"><%= food?.qty%></span>
+            <span class="font-bold text-lg"
+              ><%=food?.item?.price * food?.qty %>Tk</span
+            >
           </div>
 
+          <% } %>
           <!-- End Food List -->
         </div>
         <hr />
         <div class="text-right py-4">
           <div>
             <span class="text-lg font-bold">Total Amount:</span>
-            <span class="amount text-2xl font-bold ml-2">300Tk</span>
+            <span class="amount text-2xl font-bold ml-2"
+              ><%= session.cart.totalPrice %>Tk</span
+            >
           </div>
 
           <div>
@@ -131,6 +136,7 @@
             > -->
         </div>
       </div>
+      <% } else { %>
       <div class="empty-cart py-16">
         <div class="container mx-auto text-center">
           <h1 class="text-3xl font-bold mb-2">Cart Empty 🍕🍔</h1>
@@ -159,6 +165,8 @@
           >
         </div>
       </div>
+
+      <% }%>
     </section>
 
     <footer></footer>

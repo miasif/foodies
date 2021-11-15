@@ -74,17 +74,18 @@
     <section class="menu container mx-auto py-8">
       <h1 class="text-xl font-bold mb-8">All Pizzas</h1>
       <div class="grid grid-cols-4 gap-x-4 gap-y-4">
+        <% foods.forEach(function(food){ %>
         <div class="w-64">
-          <img class="h-40 mb-4 mx-auto" src="/img/pizza.png" alt="" />
+          <img class="h-40 mb-4 mx-auto" src="/img/<%=food.image%>" alt="" />
           <div class="text-center">
-            <h2 class="mb-4 text-lg">hhhhhh</h2>
+            <h2 class="mb-4 text-lg"><%=food.name%></h2>
             <span class="size py-1 px-4 rounded-full uppercase text-xs"
-              >small</span
+              ><%=food.size%></span
             >
             <div class="flex items-center justify-around mt-6">
-              <span class="font-bold text-lg">300Tk</span>
+              <span class="font-bold text-lg"><%=food.price%>Tk</span>
               <button
-                data-food=""
+                data-food="<%=JSON.stringify(food)%>"
                 class="
                   add-to-cart
                   py-1
@@ -101,6 +102,8 @@
             </div>
           </div>
         </div>
+
+        <% }) %>
       </div>
     </section>
 
