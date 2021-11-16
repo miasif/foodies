@@ -1,4 +1,4 @@
-// Get Create User
+// Get view
 module.exports.index = async (req, res) => {
   try {
     let message = req.flash("error");
@@ -7,8 +7,7 @@ module.exports.index = async (req, res) => {
     } else {
       message = null;
     }
-
-    res.render("admin_home", {
+    res.render("admin/admin_home", {
       editing: false,
       hasError: false,
       errorMessage: message,
@@ -18,6 +17,6 @@ module.exports.index = async (req, res) => {
     });
   } catch (error) {
     req.flash("error", "Something went wrong");
-    return res.redirect("admin_home");
+    return res.redirect("admin/admin_home");
   }
 };

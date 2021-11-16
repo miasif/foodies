@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -10,8 +11,8 @@ const session = require("express-session");
 const flash = require("express-flash");
 const MongoSessionStore = require("connect-mongodb-session")(session);
 const passport = require("passport");
-// Database connection
 
+// Database connection
 mongoose.connect("mongodb://localhost/foodies", function (err, db) {
   if (err) {
     console.log(
@@ -31,10 +32,11 @@ const MongoDBStore = new MongoSessionStore({
 
 app.use(
   session({
-    secret: "COOKIE_SECRET",
+    secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoDBStore,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
   })
 );
 
@@ -45,11 +47,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(flash());
+//Assets
+app.use(express.json());
 
 // set Template engine
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "public")));
 
+app.use(express.static(path.join(__dirname, "public")));
 app.use(homeRoutes.routes);
 app.use(auth.routes);
 app.use(adminHome.routes);

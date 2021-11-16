@@ -1,7 +1,31 @@
-const indexView = (req, res, next) => {
-  res.render("home");
-};
+const Menu = require("../models/menu");
 
-module.exports = {
-  indexView,
+//   res.render("home");
+// };
+
+// module.exports = {
+//   indexView,
+// };
+
+// Get view
+module.exports.indexView = async (req, res) => {
+  try {
+    let message = req.flash("error");
+    if (message.length > 0) {
+      message = message[0];
+    } else {
+      message = null;
+    }
+    const foods = await Menu.find();
+    res.render("home", {
+      editing: false,
+      hasError: false,
+      errorMessage: message,
+      createSuccess: req.flash("success", ""),
+      foods,
+    });
+  } catch (error) {
+    req.flash("error", "Something went wrong");
+    return res.redirect("home");
+  }
 };
