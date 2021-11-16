@@ -1,60 +1,82 @@
-const express = require("express");
-const app = express();
-const path = require("path");
-const homeRoutes = require("./routes/home-routes");
-const auth = require("./routes/auth");
-const adminHome = require("./routes/admin-home");
-const cartRoutes = require("./routes/cart-routes");
-const mongoose = require("mongoose");
-const session = require("express-session");
-const flash = require("express-flash");
-const MongoSessionStore = require("connect-mongodb-session")(session);
-const passport = require("passport");
-// Database connection
+const { json } = require("express");
 
-mongoose.connect("mongodb://localhost/foodies", function (err, db) {
-  if (err) {
-    console.log(
-      "Unable to connect to the server. Please start the server. Error:",
-      err
-    );
-  } else {
-    console.log("Connected to Server successfully!");
+// Get view
+module.exports.index = async (req, res) => {
+  try {
+    let message = req.flash("error");
+    if (message.length > 0) {
+      message = message[0];
+    } else {
+      message = null;
+    }
+    res.render("cart", {
+      editing: false,
+      hasError: false,
+      errorMessage: message,
+      validationErrors: [],
+      createSuccess: req.flash("success", ""),
+      adminInfo: req.session.admin,
+    });
+  } catch (error) {
+    req.flash("error", "Something went wrong");
+    return res.redirect("cart");
   }
-});
+};
 
-//session store
-const MongoDBStore = new MongoSessionStore({
-  uri: "mongodb://localhost/foodies",
-  collection: "sessions",
-});
+module.exports.update = async (req, res) => {
+  if (!req.session.cart) {
+    req.session.cart = {
+      items: {},
+      totalQty: 0,
+      totalPrice: 0,
+    };
+    let cart = req.session.cart;
+    console.log(req.body);
+  }
+  return res.json({ data: "All ok" });
+};
 
-app.use(
-  session({
-    secret: "COOKIE_SECRET",
-    resave: false,
-    saveUninitialized: false,
-    store: MongoDBStore,
-  })
-);
+// // Get view
+// module.exports.update = async (req, res) => {
+//   try {
+//     let message = req.flash("error");
+//     if (message.length > 0) {
+//       message = message[0];
+//     } else {
+//       message = null;
+//     }
+//     if (!req.session.cart) {
+//       req.session.cart = {
+//         items: {},
+//         totalQty: 0,
+//         totalPrice: 0,
+//       };
+//     }
+//     let cart = req.session.cart;
+//     if (!cart.items[req.body._id]) {
+//       cart.items[req.body._id] = {
+//         item: req.body,
+//         qty: 1,
+//       };
+//       cart.totalQty = cart.totalQty + 1;
+//       cart.totalPrice = parseInt(cart.totalPrice) + parseInt(req.body.price);
+//     } else {
+//       cart.items[req.body._id].qty = cart.items[req.body._id].qty + 1;
+//       cart.totalQty = cart.totalQty + 1;
+//       cart.totalPrice = cart.totalPrice + parseInt(req.body.price);
+//     }
+//     return res.json({ totalQty: req.session.cart.totalQty });
 
-// Passport config
-const passportInit = require("./config/passport");
-passportInit(passport);
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(flash());
-
-// set Template engine
-app.set("view engine", "ejs");
-
-app.use(express.static(path.join(__dirname, "public")));
-app.use(homeRoutes.routes);
-app.use(auth.routes);
-app.use(adminHome.routes);
-app.use(cartRoutes.routes);
-
-app.listen(5000, () =>
-  console.log("App is listening on url http://localhost:5000")
-);
+//     // res.render("cart", {
+//     //   editing: false,
+//     //   hasError: false,
+//     //   errorMessage: message,
+//     //   validationErrors: [],
+//     //   createSuccess: req.flash("success", ""),
+//     //   adminInfo: req.session.admin,
+//     // });
+//   } catch (error) {
+//     req.flash("error", "Something went wrong");
+//     return res.redirect("cart");
+//   }
+// };

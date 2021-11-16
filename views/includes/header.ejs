@@ -1,42 +1,56 @@
-<body data-sidebar="dark">
-  <!-- Begin page -->
-  <div id="layout-wrapper">
-    <header id="page-topbar">
-      <div class="navbar-header">
-        <div class="d-flex">
-          <!-- LOGO -->
-          <div class="navbar-brand-box">
-            <a href="index.html" class="logo logo-light">
-              <span class="logo-sm">
-                <img src="../../assets/images/logo-sm.png" alt="" height="22" />
-              </span>
-              <span class="logo-lg">
-                <img
-                  src="../../assets/images/logo-light.png"
-                  alt=""
-                  height="20"
-                />
-              </span>
-            </a>
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-sm px-3 font-size-24 header-item waves-effect"
-            id="vertical-menu-btn"
-          >
-            <i class="mdi mdi-backburger"></i>
-          </button>
-        </div>
-
-        <div class="d-flex">
-          <div class="d-inline-block">
-            <h5>
-              <span class="badge badge-danger float-right">v1.0.0</span>
-            </h5>
-          </div>
-        </div>
-      </div>
-    </header>
+<!-- ########## START: HEAD PANEL ########## -->
+<div class="sl-header">
+  <div class="sl-header-left">
+    <div class="navicon-left hidden-md-down">
+      <a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a>
+    </div>
+    <div class="navicon-left hidden-lg-up">
+      <a id="btnLeftMenuMobile" href=""
+        ><i class="icon ion-navicon-round"></i
+      ></a>
+    </div>
   </div>
-</body>
+  <!-- sl-header-left -->
+  <div class="sl-header-right">
+    <nav class="nav">
+      <div class="dropdown">
+        <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
+          <span class="logged-name"
+            >Jane<span class="hidden-md-down"> Doe</span></span
+          >
+          <img src="../img/img3.jpg" class="wd-32 rounded-circle" alt="" />
+        </a>
+        <div class="dropdown-menu dropdown-menu-header wd-200">
+          <ul class="list-unstyled user-profile-nav">
+            <li>
+              <a href=""
+                ><i class="icon ion-ios-person-outline"></i> Edit Profile</a
+              >
+            </li>
+            <li>
+              <a href=""><i class="icon ion-ios-gear-outline"></i> Settings</a>
+            </li>
+            </li>
+            <li>
+              <a href=""><i class="icon ion-power"></i> Sign Out</a>
+            </li>
+          </ul>
+        </div>
+        <!-- dropdown-menu -->
+      </div>
+      <!-- dropdown -->
+    </nav>
+    <div class="navicon-right">
+      <a id="btnRightMenu" href="" class="pos-relative">
+        <i class="icon ion-ios-bell-outline"></i>
+        <!-- start: if statement -->
+        <span class="square-8 bg-danger"></span>
+        <!-- end: if statement -->
+      </a>
+    </div>
+    <!-- navicon-right -->
+  </div>
+  <!-- sl-header-right -->
+</div>
+<!-- sl-header -->
+<!-- ########## END: HEAD PANEL ########## -->
