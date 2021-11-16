@@ -48,6 +48,7 @@ app.use(passport.session());
 
 app.use(flash());
 //Assets
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // set Template engine
