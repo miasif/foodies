@@ -58,13 +58,13 @@ https://templatemo.com/tm-558-klassy-cafe
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="/" class="logo">
                             <img src="../fronted/assets/images/klassy-logo.png" align="klassy cafe html template">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="/" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
                            	
                         <!-- 
@@ -90,7 +90,12 @@ https://templatemo.com/tm-558-klassy-cafe
                             </li>
                             <!-- <li class=""><a rel="sponsored" href="https://templatemo.com" target="_blank">External URL</a></li> -->
                             <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li> 
+                            <% if(user) { %> 
+                            <li class="scroll-to-section"><a href="/logout">Logout</a></li>
+                            <% } else { %> 
+                            <li class="scroll-to-section"><a href="/register">register</a></li>
                             <li class="scroll-to-section"><a href="/login">Login</a></li>
+                            <% } %> 
                             <li class="scroll-to-section cart" style="background: #fb6354; border-radius: 40%;"><a href="/cart"> <img src="/img/cart.png" alt="" /></a></li> 
 
 

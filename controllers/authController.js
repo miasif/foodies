@@ -59,3 +59,27 @@ module.exports.postRegister = async (req, res, next) => {
   return res.redirect("/");
   //login
 };
+
+module.exports.postLogin = async (req, res, next) => {
+  const user = await User.find().select("role");
+
+  // if (user === "customer") {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      req.flash("error", info.message);
+      return next(err);
+    }
+    if (!user) {
+      req.flash("error", info.message);
+      return res.redirect("/login");
+    }
+    req.login(user, (err) => {
+      if (err) {
+        req.flash("error", info.message);
+        return next(err);
+      }
+
+      return res.redirect("/admin");
+    });
+  })(req, res, next);
+};

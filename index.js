@@ -39,6 +39,12 @@ app.use(
     cookie: { maxAge: 1000 * 60 * 60 * 24 },
   })
 );
+//Global Middleware
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  res.locals.user = req.user;
+  next();
+});
 
 // Passport config
 const passportInit = require("./config/passport");
@@ -53,7 +59,6 @@ app.use(express.json());
 
 // set Template engine
 app.set("view engine", "ejs");
-
 app.use(express.static(path.join(__dirname, "public")));
 app.use(homeRoutes.routes);
 app.use(auth.routes);
