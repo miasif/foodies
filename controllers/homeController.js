@@ -23,6 +23,7 @@ module.exports.indexView = async (req, res) => {
       errorMessage: message,
       createSuccess: req.flash("success", ""),
       foods,
+      user: req?.session?.customer,
     });
   } catch (error) {
     req.flash("error", "Something went wrong");

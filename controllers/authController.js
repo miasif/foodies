@@ -56,6 +56,7 @@ module.exports.postRegister = async (req, res, next) => {
     password: hashedPassword,
   });
   await user.save();
+  req.session.customer = user;
   return res.redirect("/");
   //login
 };
@@ -63,7 +64,6 @@ module.exports.postRegister = async (req, res, next) => {
 module.exports.postLogin = async (req, res, next) => {
   const user = await User.find().select("role");
 
-  // if (user === "customer") {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       req.flash("error", info.message);
@@ -73,13 +73,14 @@ module.exports.postLogin = async (req, res, next) => {
       req.flash("error", info.message);
       return res.redirect("/login");
     }
+
     req.login(user, (err) => {
       if (err) {
         req.flash("error", info.message);
         return next(err);
       }
-
-      return res.redirect("/admin");
+      req.session.customer = user;
+      return res.redirect("/");
     });
   })(req, res, next);
 };
